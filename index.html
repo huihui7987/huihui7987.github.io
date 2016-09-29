@@ -135,7 +135,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a>
+                        <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a>
                     </div>
                 </section>
                 
@@ -204,6 +204,123 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-技能" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/29/技能/" class="article-date">
+      <time datetime="2016-09-29T08:14:25.000Z" itemprop="datePublished">2016-09-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/29/技能/">技能</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#1 技能</p>
+<p>##1.1python</p>
+<p>###1.1.1基础<br>《廖雪峰python3》、《python高级用法》</p>
+<p>####1.1.1.1python数据结构</p>
+<p>#####1.1.1.1.1基础<br>1.在Python中，变量名类似<strong>xxx</strong>的，也就是以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，所以，不能用<strong>name</strong>、<strong>score</strong>这样的变量名。<br>有些时候，你会看到以一个下划线开头的实例变量名(两个下划线开头的也一样算，其实任何以下划线开头的都算)，比如_name，这样的实例变量外部是可以访问的，但是，按照约定俗成的规定，当你看到这样的变量时，意思就是，“虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”。</p>
+<p>双下划线开头的实例变量是不是一定不能从外部访问呢？其实也不是。不能直接访问<strong>name是因为Python解释器对外把</strong>name变量改成了_Student<strong>name，所以，仍然可以通过_Student</strong>name来访问<strong>name变量。但是强烈建议你不要这么干，因为不同版本的Python解释器可能会把</strong>name改成不同的变量名。</p>
+<p>总的来说就是，Python本身没有任何机制阻止你干坏事，一切全靠自觉。</p>
+<p>上面说的有点绕，下面我写了两个python脚本，大家可以对照看下哪些能够访问，哪些不能，不能的情况下如何操作变得可以访问(注释后面的yes和no表示能不能被访问)。</p>
+<p>也就是说，默认呢，</p>
+<p>以一个下划线开始(不论结尾有没有下划线)的变量在外部都是可以直接访问的，但是不推荐这么做；</p>
+<p>以两个下划线开始和两个下划线结束的变量属于特殊变量，可以直接访问；</p>
+<p>以两个下划线开始且结尾不是两个下划线(可以没有也可以有一个下划线)的变量属于私有变量，不能直接访问，虽然可以通过其他方式访问，但最好不要在外部访问。</p>
+<p>eg：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding=utf-8</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></div><div class="line"></div><div class="line">    _class_field10 = <span class="string">'node class field 1-0'</span></div><div class="line">        _class_field11_ = <span class="string">'node class field 1-1'</span></div><div class="line">	    _class_field12__ = <span class="string">'node class field 1-2'</span></div><div class="line"></div><div class="line">	        __class_field20 = <span class="string">'node class field 2-0'</span></div><div class="line">		    __class_field21_ = <span class="string">'node class field 2-1'</span></div><div class="line">		        __class_field22__ = <span class="string">'node class field 2-2'</span></div><div class="line"></div><div class="line">			    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></div><div class="line">			            self.val = x</div><div class="line">				            self.next = <span class="keyword">None</span></div><div class="line"></div><div class="line">					    _class_field10 = <span class="string">'node class field 1-0'</span></div><div class="line">					    _class_field11_ = <span class="string">'node class field 1-1'</span></div><div class="line">					    _class_field12__ = <span class="string">'node class field 1-2'</span></div><div class="line">					    <span class="string">'''</span></div><div class="line">					    以上三中访问均不能得到结果，应该使用：</div><div class="line">					    ListNode._xxx来访问</div><div class="line">					    '''</div><div class="line">					    __class_field20 = <span class="string">'node class field 2-0'</span></div><div class="line">					    __class_field21_ = <span class="string">'node class field 2-1'</span></div><div class="line">					    __class_field22__ = <span class="string">'node class field 2-2'</span></div><div class="line"></div><div class="line">					    <span class="string">'''</span></div><div class="line">					    以上三个前2个均不能ListNode._xxx，</div><div class="line">					    只有第三个可以</div><div class="line">					    '''</div></pre></td></tr></table></figure></p>
+<pre><code>2. *args,**kwarg
+*args是可变参数，args接收的是一个tuple；
+
+**kw是关键字参数，kw接收的是一个dict。
+
+以及调用函数时如何传入可变参数和关键字参数的语法：
+
+可变参数既可以直接传入：func(1, 2, 3)，又可以先组装list或tuple，再通过*args传入：func(*(1, 2, 3))；
+
+关键字参数既可以直接传入：func(a=1, b=2)，又可以先组装dict，再通过**kw传入：func(**{&apos;a&apos;: 1, &apos;b&apos;: 2})。
+
+使用*args和**kw是Python的习惯写法，当然也可以用其他参数名，但最好使用习惯用法。
+
+
+###Flasky+web相关
+搭建blog并部署在heroku云端服务器上
+下一步技术细节待提高，改进方案如何实现有待继续。
+###数据可视化
+《南大视频》，《python数据可视化》、《python数据分析》
+####k-means算法
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pylab <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> scipy.cluster.vq <span class="keyword">import</span> *</div><div class="line">list1 = [<span class="number">88.0</span>,<span class="number">74.0</span>,<span class="number">96.0</span>,<span class="number">85.0</span>]</div><div class="line">list2 = [<span class="number">92.0</span>,<span class="number">99.0</span>,<span class="number">95.0</span>,<span class="number">94.0</span>]</div><div class="line">list3 = [<span class="number">91.0</span>,<span class="number">87.0</span>,<span class="number">99.0</span>,<span class="number">95.0</span>]</div><div class="line">list4 = [<span class="number">78.0</span>,<span class="number">99.0</span>,<span class="number">97.0</span>,<span class="number">81.0</span>]</div><div class="line">list5 = [<span class="number">88.0</span>,<span class="number">78.0</span>,<span class="number">98.0</span>,<span class="number">84.0</span>]</div><div class="line">list6 = [<span class="number">100.0</span>,<span class="number">95.0</span>,<span class="number">100.0</span>,<span class="number">92.0</span>]</div><div class="line">data = vstack((list1,list2,list3,list4,list5,list6))</div><div class="line">centroids,_ = kmeans(data,<span class="number">2</span>)<span class="comment">#聚类中心，分为几组。本例中要么学霸要么学渣，所以分为两类</span></div><div class="line">result,_= vq(data,centroids)<span class="comment">#结果</span></div><div class="line"><span class="keyword">print</span> ( result)</div></pre></td></tr></table></figure>
+
+###爬虫
+
+###数据挖掘
+《数据挖掘导论》
+##1.2 hadoop
+###原理
+###集群搭建
+###wordcount
+搭建环境，java/python 实现
+#2 科研
+##微分器
+###复原
+###跑道型微分器
+##积分器
+###原理
+###调研现状
+##微环
+###结构
+##拉曼效应
+###原理应用调研
+#3 其他
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/研究/">研究</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技术/">技术</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-markdown" class="article article-type-post" itemscope itemprop="blogPost">
   
