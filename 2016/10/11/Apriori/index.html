@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据挖掘之Apriori算法详解和Python实现代码 | Hello,Huimm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关联规则挖掘（Association rule mining）是数据挖掘中最活跃的研究方法之一，可以用来发现事情之间的联系，最早是为了发现超市交易数据库中不同的商品之间的关系。(啤酒与尿布)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘之Apriori算法详解和Python实现代码">
+<meta property="og:url" content="http://blog.huimm.top/2016/10/11/Apriori/index.html">
+<meta property="og:site_name" content="Hello,Huimm">
+<meta property="og:description" content="关联规则挖掘（Association rule mining）是数据挖掘中最活跃的研究方法之一，可以用来发现事情之间的联系，最早是为了发现超市交易数据库中不同的商品之间的关系。(啤酒与尿布)">
+<meta property="og:image" content="http://files.jb51.net/file_images/article/201411/2014117113744567.jpg">
+<meta property="og:updated_time" content="2016-10-11T06:09:45.319Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据挖掘之Apriori算法详解和Python实现代码">
+<meta name="twitter:description" content="关联规则挖掘（Association rule mining）是数据挖掘中最活跃的研究方法之一，可以用来发现事情之间的联系，最早是为了发现超市交易数据库中不同的商品之间的关系。(啤酒与尿布)">
+<meta name="twitter:image" content="http://files.jb51.net/file_images/article/201411/2014117113744567.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Hello,Huimm" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/logo.jpg">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/logo.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Huimm</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/tags">标签</a></li>
+                        
+                            <li><a href="/love.html">关于</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/huihui7987" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/huimm" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="#" title="weibo">weibo</a>
+                            
+                                <a class="fl google" target="_blank" href="#" title="google">google</a>
+                            
+                                <a class="fl twitter" target="_blank" href="#" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/数据挖掘-python/" style="font-size: 10px;">数据挖掘 python</a> <a href="/tags/数据挖掘，python/" style="font-size: 10px;">数据挖掘，python</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">每一个不如意的现在，都有一个不够努力的曾经。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Huimm</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/logo.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Huimm</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/tags">标签</a></li>
+                
+                    <li><a href="/love.html">关于</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/huihui7987" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/huimm" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+                    
+                        <a class="google" target="_blank" href="#" title="google">google</a>
+                    
+                        <a class="twitter" target="_blank" href="#" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Apriori" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/11/Apriori/" class="article-date">
+      <time datetime="2016-10-11T02:08:18.000Z" itemprop="datePublished">2016-10-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据挖掘之Apriori算法详解和Python实现代码
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/数据挖掘/">数据挖掘</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据挖掘-python/">数据挖掘 python</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>关联规则挖掘（Association rule mining）是数据挖掘中最活跃的研究方法之一，可以用来发现事情之间的联系，最早是为了发现超市交易数据库中不同的商品之间的关系。(啤酒与尿布)<br><a id="more"></a></p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
+<li><p>支持度的定义：support(X–&gt;Y) = |X交Y|/N=集合X与集合Y中的项在一条记录中同时出现的次数/数据记录的个数。例如：support({啤酒}–&gt;{尿布}) = 啤酒和尿布同时出现的次数/数据记录数 = 3/5=60%。</p>
+<ol>
+<li>自信度的定义：confidence(X–&gt;Y) = |X交Y|/|X| = 集合X与集合Y中的项在一条记录中同时出现的次数/集合X出现的个数 。例如：confidence({啤酒}–&gt;{尿布}) = 啤酒和尿布同时出现的次数/啤酒出现的次数=3/3=100%;confidence({尿布}–&gt;{啤酒}) = 啤酒和尿布同时出现的次数/尿布出现的次数 = 3/4 = 75%</li>
+</ol>
+<p>同时满足最小支持度阈值(min_sup)和最小置信度阈值(min_conf)的规则称作强规则 ,如果项集满足最小支持度,则称它为频繁项集</p>
+<p>“如何由大型数据库挖掘关联规则?”关联规则的挖掘是一个两步的过程:</p>
+<p>1.<br>找出所有频繁项集:根据定义,这些项集出现的频繁性至少和预定义的最小支持计数一样。<br>2、由频繁项集产生强关联规则:根据定义,这些规则必须满足最小支持度和最小置信度。</p>
+<h2 id="Apriori定律"><a href="#Apriori定律" class="headerlink" title="Apriori定律"></a>Apriori定律</h2><p>为了减少频繁项集的生成时间，我们应该尽早的消除一些完全不可能是频繁项集的集合，Apriori的两条定律就是干这事的。</p>
+<h3 id="Apriori定律1："><a href="#Apriori定律1：" class="headerlink" title="Apriori定律1："></a>Apriori定律1：</h3><p>如果一个集合是频繁项集，则它的所有子集都是频繁项集。举例：假设一个集合{A,B}是频繁项集，即A、B同时出现在一条记录的次数大于等于最小支持度min_support，则它的子集{A},{B}出现次数必定大于等于min_support，即它的子集都是频繁项集。</p>
+<h3 id="Apriori定律2："><a href="#Apriori定律2：" class="headerlink" title="Apriori定律2："></a>Apriori定律2：</h3><p>如果一个集合不是频繁项集，则它的所有超集都不是频繁项集。举例：假设集合{A}不是频繁项集，即A出现的次数小于min_support，则它的任何超集如{A,B}出现的次数必定小于min_support，因此其超集必定也不是频繁项集。<br><img src="http://files.jb51.net/file_images/article/201411/2014117113744567.jpg" alt=""><br>此处{牛奶，面包，尿布} 的计数 为2！！</p>
+</li>
+</ol>
+<hr>
+<p>  上面的图演示了Apriori算法的过程，注意看由二级频繁项集生成三级候选项集时，没有{牛奶,面包,啤酒}，那是因为{面包,啤酒}不是二级频繁项集，这里利用了Apriori定理。最后生成三级频繁项集后，没有更高一级的候选项集，因此整个算法结束，{牛奶,面包,尿布}是最大频繁子集。</p>
+<hr>
+<h2 id="Python实现代码"><a href="#Python实现代码" class="headerlink" title="Python实现代码:"></a>Python实现代码:</h2><pre><code>class Apriori(object):
+    def __init__(self, filename, min_support, item_start, item_end):
+        self.filename = filename
+        self.min_support = min_support # 最小支持度
+        self.min_confidence = 50
+        self.line_num = 0 # item的行数
+        self.item_start = item_start #  取哪行的item
+        self.item_end = item_end
+        self.location = [[i] for i in range(self.item_end - self.item_start + 1)]
+        self.support = self.sut(self.location)
+        self.num = list(sorted(set([j for i in self.location for j in i])))# 记录item
+        self.pre_support = [] # 保存前一个support,location,num
+        self.pre_location = []
+        self.pre_num = []
+        self.item_name = [] # 项目名
+        self.find_item_name()
+        self.loop()
+        self.confidence_sup()
+    def deal_line(self, line):
+        &quot;提取出需要的项&quot;
+        return [i.strip() for i in line.split(&apos; &apos;) if i][self.item_start - 1:self.item_end]
+    def find_item_name(self):
+        &quot;根据第一行抽取item_name&quot;
+        with open(self.filename, &apos;r&apos;) as F:
+            for index,line in enumerate(F.readlines()):
+                if index == 0:
+                    self.item_name = self.deal_line(line)
+                    break
+    def sut(self, location):
+        &quot;&quot;&quot;
+        输入[[1,2,3],[2,3,4],[1,3,5]...]
+        输出每个位置集的support [123,435,234...]
+        &quot;&quot;&quot;
+        with open(self.filename, &apos;r&apos;) as F:
+            support = [0] * len(location)
+            for index,line in enumerate(F.readlines()):
+                if index == 0: continue
+                # 提取每信息
+                item_line = self.deal_line(line)
+                for index_num,i in enumerate(location):
+                    flag = 0
+                    for j in i:
+                        if item_line[j] != &apos;T&apos;:
+                            flag = 1
+                            break
+                    if not flag:
+                        support[index_num] += 1
+            self.line_num = index # 一共多少行,出去第一行的item_name
+        return support
+    def select(self, c):
+        &quot;返回位置&quot;
+        stack = []
+        for i in self.location:
+            for j in self.num:
+                if j in i:
+                    if len(i) == c:
+                        stack.append(i)
+                else:
+                    stack.append([j] + i)
+        # 多重列表去重
+        import itertools
+        s = sorted([sorted(i) for i in stack])
+        location = list(s for s,_ in itertools.groupby(s))
+        return location
+    def del_location(self, support, location):
+        &quot;清除不满足条件的候选集&quot;
+        # 小于最小支持度的剔除
+        for index,i in enumerate(support):
+            if i &lt; self.line_num * self.min_support / 100:
+                support[index] = 0
+        # apriori第二条规则,剔除
+        for index,j in enumerate(location):
+            sub_location = [j[:index_loc] + j[index_loc+1:]for index_loc in range(len(j))]
+            flag = 0
+            for k in sub_location:
+                if k not in self.location:
+                    flag = 1
+                    break
+            if flag:
+                support[index] = 0
+        # 删除没用的位置
+        location = [i for i,j in zip(location,support) if j != 0]
+        support = [i for i in support if i != 0]
+        return support, location
+    def loop(self):
+        &quot;s级频繁项级的迭代&quot;
+        s = 2
+        while True:
+            print &apos;-&apos;*80
+            print &apos;The&apos; ,s - 1,&apos;loop&apos;
+            print &apos;location&apos; , self.location
+            print &apos;support&apos; , self.support
+            print &apos;num&apos; , self.num
+            print &apos;-&apos;*80
+            # 生成下一级候选集
+            location = self.select(s)
+            support = self.sut(location)
+            support, location = self.del_location(support, location)
+            num = list(sorted(set([j for i in location for j in i])))
+            s += 1
+            if  location and support and num:
+                self.pre_num = self.num
+                self.pre_location = self.location
+                self.pre_support = self.support
+                self.num = num
+                self.location = location
+                self.support = support
+            else:
+                break
+    def confidence_sup(self):
+        &quot;计算confidence&quot;
+        if sum(self.pre_support) == 0:
+            print &apos;min_support error&apos; # 第一次迭代即失败
+        else:
+            for index_location,each_location in enumerate(self.location):
+                del_num = [each_location[:index] + each_location[index+1:] for index in range(len(each_location))] # 生成上一级频繁项级
+                del_num = [i for i in del_num if i in self.pre_location] # 删除不存在上一级频繁项级子集
+                del_support = [self.pre_support[self.pre_location.index(i)] for i in del_num if i in self.pre_location] # 从上一级支持度查找
+                # print del_num
+                # print self.support[index_location]
+                # print del_support
+                for index,i in enumerate(del_num): # 计算每个关联规则支持度和自信度
+                    index_support = 0
+                    if len(self.support) != 1:
+                        index_support = index
+                    support =  float(self.support[index_location])/self.line_num * 100 # 支持度
+                    s = [j for index_item,j in enumerate(self.item_name) if index_item in i]
+                    if del_support[index]:
+                        confidence = float(self.support[index_location])/del_support[index] * 100
+                        if confidence &gt; self.min_confidence:
+                            print &apos;,&apos;.join(s) , &apos;-&gt;&gt;&apos; , self.item_name[each_location[index]] , &apos; min_support: &apos; , str(support) + &apos;%&apos; , &apos; min_confidence:&apos; , str(confidence) + &apos;%&apos;
+def main():
+    c = Apriori(&apos;basket.txt&apos;, 14, 3, 13)
+    d = Apriori(&apos;simple.txt&apos;, 50, 2, 6)
+</code></pre><p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    main()</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/10/11/Apriori/">数据挖掘之Apriori算法详解和Python实现代码</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Huimm 的个人博客">Huimm</a></p>
+        <p><span>发布时间:</span>2016年10月11日 - 10时08分</p>
+        <p><span>最后更新:</span>2016年10月11日 - 14时09分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/11/Apriori/" title="数据挖掘之Apriori算法详解和Python实现代码">http://blog.huimm.top/2016/10/11/Apriori/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.huimm.top/2016/10/11/Apriori/　　作者: Huimm" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/10/11/Aprion/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          数据挖掘之Apriori算法详解和Python实现代码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/09/30/README-ZH_CN/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python资料</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apriori定律"><span class="toc-number">2.</span> <span class="toc-text">Apriori定律</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Apriori定律1："><span class="toc-number">2.1.</span> <span class="toc-text">Apriori定律1：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apriori定律2："><span class="toc-number">2.2.</span> <span class="toc-text">Apriori定律2：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python实现代码"><span class="toc-number">3.</span> <span class="toc-text">Python实现代码:</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/10/11/Apriori/" data-title="数据挖掘之Apriori算法详解和Python实现代码" data-url="http://blog.huimm.top/2016/10/11/Apriori/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/10/11/Aprion/" title="上一篇: 数据挖掘之Apriori算法详解和Python实现代码">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/09/30/README-ZH_CN/" title="下一篇: python资料">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/10/11/Aprion/">数据挖掘之Apriori算法详解和Python实现代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/11/Apriori/">数据挖掘之Apriori算法详解和Python实现代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/30/README-ZH_CN/">python资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/30/README/">Awesome Python Books(in English)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/技能/">技能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/markdown/">markdown</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Huimm
+            </div>
+            <div class="footer-right">
+                <a href="https://github.com/huihui7987/" target="_blank">Huimm</a>  github <a href="https://github.com/huihui7987/" target="_blank"></a> by huihui
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
