@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>dataMining初步 | Hello,Huimm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如今数据行业正式火热的时候，不少公司纷纷设置数据岗位，也有很多创业公司从数据角度入手，同时，不少高校也成立了数据专业。特别是大数据这个名词，已经被热炒了好几年如果大家留意的话，会发现网上很多关于大数据的课题，往往是在研究大数据平台，比如Hadoop，spark
+然而从时间角度来说，数据工作者有三个角度：技术、统计、和业务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dataMining初步">
+<meta property="og:url" content="http://blog.huimm.top/2016/11/25/dataMining初步/index.html">
+<meta property="og:site_name" content="Hello,Huimm">
+<meta property="og:description" content="如今数据行业正式火热的时候，不少公司纷纷设置数据岗位，也有很多创业公司从数据角度入手，同时，不少高校也成立了数据专业。特别是大数据这个名词，已经被热炒了好几年如果大家留意的话，会发现网上很多关于大数据的课题，往往是在研究大数据平台，比如Hadoop，spark
+然而从时间角度来说，数据工作者有三个角度：技术、统计、和业务">
+<meta property="og:image" content="https://segmentfault.com/img/bVtSSE">
+<meta property="og:updated_time" content="2016-11-25T14:53:48.199Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dataMining初步">
+<meta name="twitter:description" content="如今数据行业正式火热的时候，不少公司纷纷设置数据岗位，也有很多创业公司从数据角度入手，同时，不少高校也成立了数据专业。特别是大数据这个名词，已经被热炒了好几年如果大家留意的话，会发现网上很多关于大数据的课题，往往是在研究大数据平台，比如Hadoop，spark
+然而从时间角度来说，数据工作者有三个角度：技术、统计、和业务">
+<meta name="twitter:image" content="https://segmentfault.com/img/bVtSSE">
+  
+    <link rel="alternative" href="/atom.xml" title="Hello,Huimm" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/logo.jpg">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/logo.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Huimm</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/tags">标签</a></li>
+                        
+                            <li><a href="/love.html">关于</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/huihui7987" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/huimm" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="#" title="weibo">weibo</a>
+                            
+                                <a class="fl google" target="_blank" href="#" title="google">google</a>
+                            
+                                <a class="fl twitter" target="_blank" href="#" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/data-mining-python/" style="font-size: 10px;">data-mining python</a> <a href="/tags/dataMining-python/" style="font-size: 10px;">dataMining,python</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/数据挖掘-python/" style="font-size: 10px;">数据挖掘 python</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">每一个不如意的现在，都有一个不够努力的曾经。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Huimm</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/logo.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Huimm</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/tags">标签</a></li>
+                
+                    <li><a href="/love.html">关于</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/huihui7987" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/huimm" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+                    
+                        <a class="google" target="_blank" href="#" title="google">google</a>
+                    
+                        <a class="twitter" target="_blank" href="#" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-dataMining初步" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/25/dataMining初步/" class="article-date">
+      <time datetime="2016-11-25T14:35:27.000Z" itemprop="datePublished">2016-11-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      dataMining初步
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/dataMining/">dataMining</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dataMining-python/">dataMining,python</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>如今数据行业正式火热的时候，不少公司纷纷设置数据岗位，也有很多创业公司从数据角度入手，同时，不少高校也成立了数据专业。<br>特别是大数据这个名词，已经被热炒了好几年<br>如果大家留意的话，会发现网上很多关于大数据的课题，往往是在研究大数据平台，比如Hadoop，spark</p>
+<p>然而从时间角度来说，数据工作者有三个角度：技术、统计、和业务</p>
+<a id="more"></a>
+<p>从时间角度来说，数据工作者有三个角度：技术、统计、和业务</p>
+<p>这里技术主要指的就是IT技术，从简单的分析工具，如R、SPSS，数据库，到大数据平台，如storm，spark等等<br>统计呢，是指建模、数学、概率统计，其中尤其以统计最为重要<br>业务是指，数据工作者会始终以业务为导向。<br>从某个角度来说，数据应该是扮演辅助的角色。这个待会我们会重点讲<br>关于数据分析和数据挖掘，市面上有很多种教材，会讲各种各样的算法，比如回归，关联等等。。。然而如果真的深入到实际工作中时，会发现：教科书上的练习过于纸上谈兵，现实中很少有干干净净的数据摆在你面前让你用各种算法去做；实际上数据清洗会占到真正工作的60%以上（ETL <code>http://www.cnblogs.com/elaron/archive/2012/04/09/2438372.html</code>， Kettle 很常用）</p>
+<p>这里顺带介绍一下我的经历，本科我修的是天文，但是主要的还是推导公式，跟现在我们很多大学里学的还是差不多（这点有些遗憾）<br>后来对学术现状表示很灰心，就决定去社会上实践一下，于是比价勉强的做了电子工程师；然而接着发现没有受过专门训练还是很难走远，就决定去深造<br>因为专业原因（为了好申请），我的博士方向选定了天文仪器<br>然后就是连续n年在实验室里做仪器，运到山上去观测，然后回来分析数据，期望能够发现点什么。。。。<br>结果数据质量很差，打个比方是什么呢？<br>我们期望在一张白纸上，会突然有个黑点，然后可以兴奋的指着说，我发现了一颗星<br>结果实际上呢，拿出纸来，发现一片雪花<br>就这样好多年，很难毕业。然后就换了个做理论的导师，导师的名言是：“we never use real data. real data sucks!”<br>我们只用模拟数据~<br>然后就毕业了。。。<br>做的事天文统计，用计算机模拟物理模型，然后反过来分析模拟的数据，做了一堆东西。。。<br>有了这些经历，我对数据的质量就特别敏感，总希望从一开始就把握好数据质量，不然我们浪费的不仅是金钱和时间，还有更重要的机会<br><img src="https://segmentfault.com/img/bVtSSE" alt="此处输入图片的描述"></p>
+<p>我们现在说说第一个话题，拿数据做什么？<br>数据用来做什么？我大概总结了一下：记录、解释（理解）、预测、控制</p>
+<p><strong>记录</strong>：一个是将我们感兴趣的活动记录下来，比如日志，交易记录等等<br>解释：通过数据和数据之间发现的信息，帮助我们理解一些问题，比如，通过实验和分析数据，很多物理模型得以建立<br><strong>预测</strong>：通过分析和挖掘数据建立的模型，可以用来在已知情况下，去预测我们感兴趣的某些变量，帮助我们采取相应的措施<br><strong>控制</strong>：也是在模型的基础上，如果我们希望达到某种结果，改如何改变某些可以控制的变量。比如，我们通过调整利率可以达到管理经济的目的<br>数据分析和数据挖掘，就是用来从数据中获得信息、模型、知识的一系列方法<br>其中，根据我的理解，数据分析相对传统，一般是建立在假设检验的基础上，对已知的模型进行参数估计等<br>而数据挖掘，一般是指发现数据中隐含的模式，或者我们称之为知识、模型、都可以<br><strong>常见的数据分析方法：如描述性统计、相关分析、回归分析等等；常见的数据挖掘方法：如分类、关联、聚类、回归等等</strong><br>具体指代的是什么，有很多资料可以查，我在这里就不一一赘述了。<br>那么我们对这个话题总结一下的话，可以概括为<br>“数据-信息-知识-智慧”<br>这个是业内经常被拿来说的“数据金字塔”<br>1,3,8,15,20,25,26,30,31,20,8,4<br>比如这串数字，我们可以称之为数据<br>如果再加点内容，这个表示了某个地区一年12个月（不确定我是不是输错了）的气温，那么这个叫信息<br>当我们利用分析方法，发现平均气温的周期性，以及冬暖夏凉时，这个就称之为知识<br>至于如何应对这种周期性的气温变化，以及能对她做什么，那就是智慧了。<br>我个人认为，数据工作，也就到“知识”这个层面<br>![此处输入图片的描述][2]</p>
+<p>继续下一个话题 ： </p>
+<h3 id="2-数据建模"><a href="#2-数据建模" class="headerlink" title="2.数据建模"></a>2.数据建模</h3><p>数据工作者就是能到达“知识”这个层面，尤其是现在，即使alpha狗这么厉害，它估计还是分不清善恶,也很难做出有创意的决策<br>所以数据工作者要看清自己的位置，那就是辅助决策。<br>当然一边是数据工作者，一边又是CEO的人是另一回事，但是也要分不同的角色去扮演。。。<br>数据工作者实际工作中，是不会有人喂给你质量很好的数据的<br>书上那么多高大上的算法，在现实中也是难得一用的，一般是做了好几个月数据清洗，挖掘之后，啥模式也没有。。。。</p>
+<p>那我们就要说，数据工作者最重要的一个任务，就是根据业务去进行数据建模<br>什么叫做数据建模？从我个人的理解，就是要把你所面对的业务转变成数学问题（或者说数据问题）<br>也可以用另一句话来代替：就是要定义变量<br>要做好变量定义，其实要涉及到好几个问题：1.对业务流程的理解 2. 对IT技术的理解 </p>
+<h3 id="3-对分析和挖掘方法的理解"><a href="#3-对分析和挖掘方法的理解" class="headerlink" title="3. 对分析和挖掘方法的理解"></a>3. 对分析和挖掘方法的理解</h3><p>对业务流程的理解是指，如何定义变量，可以使得数据辅助主营业务增收或者降低成本，甚至有增值价值？<br>对IT技术的理解是指，这些变量是否能够被有效的收集和存储？应该使用什么样的技术？<br>数据积累下来了，可以用什么分析和挖掘的方法？（这个后面也会有讨论）<br>举一个例子：<br>之前我们为12301全媒体呼叫中心做数据分析，由于没有在一开始就介入到数据建模的工作，导致后面很多问题<br>12301是国家旅游局的客服中心，承担游客对涉旅企事业单位的投诉、咨询，协助国家旅游局对旅游秩序进行监管。大家可以想象，它的业务模式是什么？要考虑哪些方面的需求？<br>这里是强调，数据建模时，一定要以业务作为导向，才能定义到合适的变量<br>一个客服中心，考虑N方需求：用户，企业，客服人员，系统，监管单位<br>游客打电话进来，会投诉或者咨询，下一步这个中心就要把这个问题专项被投诉企业或监管部门，这是主营业务 , 然后还有对投诉工单进行追踪和反馈<br>同时，客服中心需要自我管理，也就是要提高工作效率，也就是希望能从数据里看到客服人员的接诉状况<br>再同时，由于客服中心经常会使用第三方的呼叫中心系统，往往这些系统价格不菲，所以还需要使用数据来评估系统的使用状况<br>数据工作者只有在了解了业务模式之后，占多多方的角度上考虑问题，从全局去找一个对所有方都优化的模型，那么工单系统中需要记载的变量就相对容易的浮出来了<br>所以，这里暂且不说什么复杂的模型，光是要把实际业务抽取为变量，就需要以业务导向。<br>当业务跑起来之后，数据以最好的姿势积累了下来之后，你的数据自然会变成价值连城的“大数据”<br>那么基本流程是这样的：定义变量–设计采集流程–参与系统开发–数据反馈–。。。<br>数据工作者先进行数据建模，然后设计和参与业务系统的开发，然后从数据角度对业务进行反馈。。。 这样迭代<br>这一步，我们可以用另外一句话来概括：“先业务数据化，后数据业务化”<br>![此处输入图片的描述][3]</p>
+<p>前半句我们已经说了，后半句实际上就是将我们的数据进行分析和挖掘，体现其价值。<br>首先：变量的类型<br>先看看变量都有哪些类型<br>![此处输入图片的描述][4]</p>
+<p>这个图不少人应该已经看过<br>变量大概分为两类：类别型，和数值型<br>这两类其中又会再各分为两类 见图片<br>为什么我们要说变量的类型，原因有两个，第一：变量类型会影响数据所携带的信息量；第二：变量类型会影响后续的分析方式<br>我再给大家找一个似曾相识的图<br>![此处输入图片的描述][5]</p>
+<p>这幅图我不用多解释了，大家有问题可以后面再问<br>那么对于变量类型，我的原则是，能够用数值型的就用数值型<br>原因很简单，数值型的可以做离散化，转换成类别型；反之则不成<br>所以我倾向于用冗余的方式去做，能用数值型，就用数值型<br>好<br>第二条：变量的度量和粒度<br>举个栗子更容易说清楚，<br>比如描述地理位置的变量<br>按照粒度从大到小，可以是 洲-国家-省-市-县等等<br>但是如果有经纬度，那我一定要经纬度<br>这个粒度最细<br>后续数据清洗的时候，我可以轻易的把地理经纬度转换成为洲-国家-省-市-县，当然这步需要借助于一些数据辞典<br>这个原则呢，也就是要粒度最细，精度最高的方式来采集数据<br>定义变量<br>第三条，变量个数<br>这里我的原则是，取得的变量最好不相关，也就是都是独立测量的<br>比如说，如果有某类交易的总额和平均额，那么我取一个就好了<br>这点比较明显<br>但是有两个地方可能会有坑<br>![此处输入图片的描述][6]<br>举个例子<br>那天有工人来我家安马桶测量，需要确定污水口中心到墙面的距离<br>理论上 R+d=D<br>所以测量两个就够了<br>但是呢，由于污水口的中心点很难确定，通常他们都会把三个值都测量一下<br>如果发现等式不成立，他们会重新测量<br>这里就是因为有些变量的值的确定会有不确定因素，所以引入另一个相关的作为校准。<br>第二个坑：有时候会见到有些朋友会把一堆变量做很多计算后，衍生出很多新的变量，然后一起放到模型里去分析，这个就会出现变量之间的相关关系，也是我们希望避免的。</p>
+<p>为什么要避免 变量之间的相关关系？分析数据的时候，自变量太多的话，我们首先要做一下降维处理，不然分析的难度会很大，刚才的衍生变量，实际上认为的造成不必要人为的维度的增加。当然，有些衍生变量与原变量之间是相互独立的。<br>好，关于数据建模，大致讲这么多<br>![此处输入图片的描述][7]</p>
+<p>假设数据已经到手，先要“清洗”，清洗主要是处理 缺失值，不一致的取值，以及明显错误的值，这点咱们也不说了。脏活累活。。。。<br>这是对不参与系统开发的数据者的报应。。<br>假设数据到手了。。<br>你有一堆变量，可能是来自数据库，也可能是文本文件，excel，。。。 这些也无所谓<br>我们能做什么分析<br>第一，数据分析的任务，就是想看一下这么多变量之间是否有关系？<br>如果你发现木有关系，。。。。那么好了，事情基本就结束了，所有的变量都是相互独立的。。。 不相关的。。。。<br>然而事情并不会这样子<br>一般都会有关系</p>
+<p>通过相关分析，或者更多的，也是我更推荐的，是用可视化的探索性分析，你会发现很多有趣的关联性<br>可视化探索分析可以给数据分析人员很多指示性的方向，定性的。 这里也强力推荐，可视化<br>可视化不光是给领导看的，也不光是讲故事的，更多的是分析用的 当我们发现变量间存在相关性的时候，这时候回归基本上可以解决大部分问题<br>这里的回归，指的是广义的回归<br>![此处输入图片的描述][8]</p>
+<p>见图，图来自《R语言实战》<br>跑完了回归分析，基本上解释、预测、控制，很多工作就可以做了<br>可以说，大部分情况下，回归都可以胜任了。<br>我把以回归为代表的模型，称作“统计模型”<br>很多时候，我们使用统计模型，注重关联性，但是不注重因果<br>然而统计模型对数据实际上有假设的<br>举个例子<br>异常值的判断： 通常一个方法，是用样本均值加减三倍的样本方差<br>在这之外的数据点，我们认为是异常值（&lt;1%的概率会出现的值）<br>这里有个假设，那么就是你认为样本数据是正态分布的。<br>然而未必<br>另一个例子，比如说我们在做天文观测的时候，要计算落在CCD上的光子的个数<br>计数的变量，大多数情况下，并非正态分布，而是泊松分布，那么异常值就不可以用刚才说的方法来做<br>比如，网页的点击数，等等<br>当然，有泊松回归可以解决类似问题<br>在回归的过程中，会有对变量进行幂次变化的交互过程<br>最后会得到一个经验公式<br>比如 y=x^a<br>如果前辈有人已经产生了这样的模型，通常我们会拿来用，但是通过拟合的方式，来确定参数a<br>使用这种模型，我称之为“经验模型”<br>第三种模型，因为我是物理出身的，往往觉得会是究极一些，就是物理模型<br>虽然一般来说用不上吧<br>实际上在大数据行业的现阶段，重关联，不重因果，也就是往往会用统计模型去研究大数据中的价值<br>一方面是因为，统计模型够用了，还有很多价值没有被挖掘；<br>另一方面是，如此大量的数据，使用物理模型去研究，计算量过于昂贵<br>然后物理模型非常有用，可以帮我们来判断什么样的分析方式更合适<br>举个例子<br>价格<br>物价也好，股价也好，现在都有比较成熟的物理模型验证了，价格是对数正态分布；<br>比如人的满意度，也并非线性的，也是对数形式的<br>也就是说，你如果想让另一个人对你的满意度提高1倍，你对他的好大概要提高10倍，也就是一个量级。。。。<br>追妹子的同学注意了，物理模型教你控制成本。<br>当然了，实际上<br>物理模型在历史上的建立，也是从统计模型到经验模型，逐步建立的。。。<br>好，关于这个话题呢，我们总结一下，就是拿到数据之后分析和挖掘的方向</p>
+<p>最主要的任务，就是要探究变量之间的关系不管是数据分析也好，还是数据挖掘的各种算法也好<br>![此处输入图片的描述][9]</p>
+<p>###第5个话题 抽样和数据量<br>这点刚才有位同学提到过，如何检验数据质量<br>这里面就是抽样科学研究的问题<br>好的抽样，是指样本相对于总体，有代表性，样本足够大<br>有代表性，可以通过检查样本变量的分布，是否与总体分布一致来确认<br>样本是否够大，除了经验性的认为，“多一个变量，就多30条记录”以外，还有一个办法叫做功效分析<br>功效分析研究四个因素的关系，这是基于数据分析的思想（假设检验）<br>四个因素分别是：显著水平α，功效（1-第二类错误的概率），样本大小，和效应值<br>在抽样之前可以做一下这类分析，来确定这次分析是否值得。<br>具体内容呢，由于时间关系，大家可以参考有关资料</p>
+<p>当然，现在大数据的一个思想，是说”我要全部“<br>所有的数据都因为采集成本低而都可以纳入囊中<br>那么就是另一个问题了，有了大数据平台的支持，与刚才我们说的小样本数据分析会有些不同。<br>但是数据工作者大多数时候，还是会遇到小样本问题</p>
+<p>这些工作如何做，大家确实需要好好研读一下统计分析建模、概率论等书籍综合起来呢，数据工作者如果想获得高质量的数据，数据建模是最重要的，而好的建模是建立在对业务的理解和抽象基础上的。</p>
+<p>PS：大数据的挖掘分析，现在有比较成熟的变现方式吗？或者您看好哪些方向更容易出商业价值？ 计算广告 用大数据去降低成本，也算是变现吧。。。</p>
+<p>PS2：有没什么数理统计一块可以走的？理论上的数理统计你如何评判它的准确性？行为心理学里，我现在用现实调查的数据很难做出什么结果，有没有什么研究理论一块的路子可以介绍着走一走呢？有本书，叫做 市场调查 基于R语言 周庭锐老师写的，调查问卷也是有很多坑的，如果是市场调查的话，好像不太适合用模拟仿真之类</p>
+<pre><code>[2]: https://segmentfault.com/img/bVtSSY
+  [3]: https://segmentfault.com/img/bVtSTo
+    [4]: https://segmentfault.com/img/bVtSTg
+  [5]: https://segmentfault.com/img/bVtSTs
+    [6]: https://segmentfault.com/img/bVtSTz
+      [7]: https://segmentfault.com/img/bVtSTD
+        [8]: https://segmentfault.com/img/bVtSTJ
+      [9]: https://segmentfault.com/img/bVtSTS
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/11/25/dataMining初步/">dataMining初步</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Huimm 的个人博客">Huimm</a></p>
+        <p><span>发布时间:</span>2016年11月25日 - 22时35分</p>
+        <p><span>最后更新:</span>2016年11月25日 - 22时53分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/11/25/dataMining初步/" title="dataMining初步">http://blog.huimm.top/2016/11/25/dataMining初步/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.huimm.top/2016/11/25/dataMining初步/　　作者: Huimm" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/17/推荐系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">推荐系统</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-数据建模"><span class="toc-number">1.</span> <span class="toc-text">2.数据建模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-对分析和挖掘方法的理解"><span class="toc-number">2.</span> <span class="toc-text">3. 对分析和挖掘方法的理解</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/11/25/dataMining初步/" data-title="dataMining初步" data-url="http://blog.huimm.top/2016/11/25/dataMining初步/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/10/17/推荐系统/" title="下一篇: 推荐系统">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/25/dataMining初步/">dataMining初步</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/17/推荐系统/">推荐系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/11/Apriori/">数据挖掘之Apriori算法详解和Python实现代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/30/README-ZH_CN/">python资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/30/README/">Awesome Python Books(in English)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/技能/">技能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/markdown/">markdown</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Huimm
+            </div>
+            <div class="footer-right">
+                <a href="https://github.com/huihui7987/" target="_blank">Huimm</a>  github <a href="https://github.com/huihui7987/" target="_blank"></a> by huihui
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
